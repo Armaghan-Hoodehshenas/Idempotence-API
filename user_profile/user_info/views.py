@@ -17,7 +17,7 @@ class ProfileView(APIView):
             is_exists = cache.get(key)
 
             if is_exists:
-                return Response(data=serializer, status=status.HTTP_200_OK)
+                return Response(data=serializer.data, status=status.HTTP_409_CONFLICT)
             else:
                 Profile.objects.create(first_name=data['first_name'], last_name=data['last_name'])
                 cache.set(key, 'idem', 20)
